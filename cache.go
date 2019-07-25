@@ -3,7 +3,7 @@ package tci
 import (
 	"sync"
 
-	"github.com/httpimp/golang-tci/lru"
+	"github.com/kevburnsjr/tci-lru/lru"
 )
 
 // Cache is a thread-safe fixed size LRU cache.
