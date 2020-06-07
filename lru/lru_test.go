@@ -232,3 +232,19 @@ func TestLruInvalidate(t *testing.T) {
 		t.Errorf("tag-2 should have been removed")
 	}
 }
+
+// test that invalidate removes items
+func TestLruFindByTags(t *testing.T) {
+	l, err := NewLRU(2, nil)
+	if err != nil {
+		t.Fatalf("err: %v", err)
+	}
+
+	// Invalidation
+	l.Add(1, 1, []string{"tag-1"}...)
+	l.Add(2, 2, []string{"tag-2"}...)
+	found := l.FindByTags([]string{"tag-1"})
+	if len(found) != 1 {
+		t.Errorf("FindByTags should have returned 1 key: %v", found)
+	}
+}

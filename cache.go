@@ -96,12 +96,20 @@ func (c *Cache) Resize(size int) (evicted int) {
 	return evicted
 }
 
-// Resize changes the cache size.
+// Invalidate invalidates a tag, purging all associated keys from the cache.
 func (c *Cache) Invalidate(tags []string) (removed int) {
 	c.lock.Lock()
 	removed = c.lru.Invalidate(tags)
 	c.lock.Unlock()
 	return removed
+}
+
+// FindByTags returns all matching keys for a set of tags.
+func (c *Cache) FindByTags(tags []string) (found []interface{}) {
+	c.lock.Lock()
+	found = c.lru.FindByTags(tags)
+	c.lock.Unlock()
+	return found
 }
 
 // RemoveOldest removes the oldest item from the cache.

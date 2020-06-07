@@ -37,6 +37,9 @@ type LRUCache interface {
 	// Resizes cache, returning number evicted
 	Resize(int) int
 
-	// Invalidates cache entries associated with supplied tags
+	// Invalidates removes cache entries associated with supplied tags
 	Invalidate([]string) int
+
+	// FindByTags returns cache entries associated with supplied tags
+	FindByTags([]string) []interface{}
 }

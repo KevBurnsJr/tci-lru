@@ -196,6 +196,19 @@ func (c *LRU) Invalidate(tags []string) (removed int) {
 	return removed
 }
 
+// FindByTags returns all matching keys for a set of tags.
+func (c *LRU) FindByTags(tags []string) (keys []interface{}) {
+	keys = []interface{}{}
+	for _, tag := range tags {
+		if els, ok := c.tags[tag]; ok {
+			for el, _ := range els {
+				keys = append(keys, el.Value.(*entry).key)
+			}
+		}
+	}
+	return
+}
+
 // tag adds a key to the invalidation list
 func (c *LRU) tag(el *list.Element, tags []string) {
 	for _, tag := range tags {
